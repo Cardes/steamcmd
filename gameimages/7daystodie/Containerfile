@@ -5,13 +5,16 @@ ENV HOME /mygame/gamefiles
 #add user and group for steamcmd
 RUN groupadd -r mygame && useradd --no-log-init -r -g mygame mygame
 #allow the group to write and execute, this can't be bound to a specifc ID as openshift assigns random ids
-RUN mkdir -p /mygame/gamefiles && chown -R mygame:mygame /mygame && chmod -R g+rwx /mygame && chmod -R a+rwx /tmp
-USER mygame
-###End Basepart - start gamespecific part
+RUN mkdir -p /mygame/gamefiles \
+    && mkdir -p /mygame/saves \
+    && mkdir -p /mygame/data  \
+    && chown -R mygame:mygame /mygame \
+    && chmod -R g+rwx /mygame \
+    && chmod -R a+rwx /tmp
 
 VOLUME ["/mygame/saves","/mygame/data"]
-RUN mkdir -p /mygame/saves && mkdir -p /mygame/data && chmod -R g+rwx /mygame
 WORKDIR /mygame
+USER mygame
 #Installing 7days dedicated
 RUN steamcmd +force_install_dir /mygame/gamefiles +login anonymous +app_update 294420 +quit
 #The serveconfig.xml is provided via configmap so there is no need to build logic to convert ENV variable to serverconfig entries
