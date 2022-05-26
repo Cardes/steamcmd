@@ -8,6 +8,6 @@ RUN groupadd -r mygame && useradd --no-log-init -r -g mygame mygame
 VOLUME ["/mygame/gamefiles"]
 WORKDIR /mygame/gamefiles
 #allow the group to write and execute, this can't be bound to a specifc ID as openshift assigns random ids
-RUN chown -R mygame:mygame /mygame && chmod -R g+rx /mygame /tmp
+RUN chown -R mygame:mygame /mygame && chmod -R g+rwx /mygame /tmp
 USER mygame
 WORKDIR /mygame

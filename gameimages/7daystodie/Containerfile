@@ -1,7 +1,12 @@
 
 FROM okd-steamcmd
-WORKDIR /mygame
 USER mygame
+WORKDIR /mygame/saves
+WORKDIR /mygame/data
+VOLUME ["/mygame/saves","/mygame/data"]
+WORKDIR /mygame
 #Installing 7days dedicated
-RUN steamcmd +login anonymous +force_install_dir /mygame/gamefiles +app_update 294420 +quit
-ENTRYPOINT [ "./startserver.sh -configfile=serverconfig.xml" ]
+RUN steamcmd +force_install_dir /mygame/gamefiles +login anonymous +app_update 294420 +quit
+WORKDIR /mygame/gamefiles
+#The serveconfig.xml is provided via configmap so there is no need to build logic to convert ENV variable to serverconfig entries
+ENTRYPOINT [ "/mygame/gamefiles/./startserver.sh -configfile=/mygame/gamefiles/serverconfig.xml" ]
