@@ -10,7 +10,7 @@ USER mygame
 ###End Basepart - start gamespecific part
 
 VOLUME ["/mygame/saves","/mygame/data"]
-RUN mkdir -p /mygame/saves && mkdir -p /mygames/data && chmod -R g+rwx /mygame
+RUN mkdir -p /mygame/saves && mkdir -p /mygame/data && chmod -R g+rwx /mygame
 WORKDIR /mygame
 #Installing 7days dedicated
 RUN steamcmd +force_install_dir /mygame/gamefiles +login anonymous +app_update 294420 +quit
