@@ -16,5 +16,5 @@ VOLUME ["/mygame/saves","/mygame/data"]
 WORKDIR /mygame
 USER mygame
 #The serveconfig.xml is provided via configmap so there is no need to build logic to convert ENV variable to serverconfig entries
-COPY --chmod=g+rx src/entrypoint.sh /mygame
+COPY --chmod=555 src/entrypoint.sh /mygame
 ENTRYPOINT [ "/mygame/./entrypoint.sh" ]
