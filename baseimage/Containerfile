@@ -1,0 +1,13 @@
+FROM steamcmd/steamcmd:ubuntu-20
+#overwrite ENV for our user
+ENV USER mygame
+ENV HOME /mygame/gamefiles
+#add user and group for steamcmd
+RUN groupadd -r mygame && useradd --no-log-init -r -g mygame mygame
+#all gamecontent will be placed inside here
+VOLUME ["/mygame/gamefiles"]
+WORKDIR /mygame/gamefiles
+#allow the group to write and execute, this can't be bound to a specifc ID as openshift assigns random ids
+RUN chown -R mygame:mygame /mygame && chmod -R g+rx /mygame /tmp
+USER mygame
+WORKDIR /mygame

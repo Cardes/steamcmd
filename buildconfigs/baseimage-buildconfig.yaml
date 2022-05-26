@@ -1,0 +1,24 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: 7days-build
+  namespace: 7days
+spec:
+  source:
+    git:
+      ref: dev
+      uri: 'https://github.com/Cardes/steamcmd.git'
+    contextDir: baseimage
+    type: Git
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Containerfile
+  triggers:
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
+  output:
+    to:
+      kind: ImageStreamTag
+      name: okd-steamcmd:latest
