@@ -1,8 +1,16 @@
-
-FROM okd-steamcmd
+FROM docker.io/steamcmd/steamcmd:ubuntu-20
+#overwrite ENV for our user
+ENV USER mygame
+ENV HOME /mygame/gamefiles
+#add user and group for steamcmd
+RUN groupadd -r mygame && useradd --no-log-init -r -g mygame mygame
+#allow the group to write and execute, this can't be bound to a specifc ID as openshift assigns random ids
+RUN mkdir -p /mygame/gamefiles && chown -R mygame:mygame /mygame && chmod -R g+rwx /mygame && chmod -R a+rwx /tmp
 USER mygame
+###End Basepart - start gamespecific part
+
 VOLUME ["/mygame/saves","/mygame/data"]
-RUN mkdir -p /mygame/saves && mkdir -p /mygames/data && chmod -R g+rwx /mydata
+RUN mkdir -p /mygame/saves && mkdir -p /mygames/data && chmod -R g+rwx /mygame
 WORKDIR /mygame
 #Installing 7days dedicated
 RUN steamcmd +force_install_dir /mygame/gamefiles +login anonymous +app_update 294420 +quit
