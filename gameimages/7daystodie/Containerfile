@@ -1,6 +1,7 @@
 
 FROM okd-steamcmd
 WORKDIR /mygame
+USER mygame
 #Installing 7days dedicated
 RUN steamcmd +login anonymous +force_install_dir /mygame/gamefiles +app_update 294420 +quit
 ENTRYPOINT [ "./startserver.sh -configfile=serverconfig.xml" ]
