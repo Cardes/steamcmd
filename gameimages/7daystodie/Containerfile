@@ -15,7 +15,6 @@ RUN mkdir -p /mygame/gamefiles \
 VOLUME ["/mygame/saves","/mygame/data"]
 WORKDIR /mygame
 USER mygame
-#Installing 7days dedicated
-RUN steamcmd +force_install_dir /mygame/gamefiles +login anonymous +app_update 294420 +quit
 #The serveconfig.xml is provided via configmap so there is no need to build logic to convert ENV variable to serverconfig entries
-ENTRYPOINT [ "/mygame/gamefiles/./startserver.sh -configfile=/mygame/gamefiles/serverconfig.xml" ]
+COPY --chmod=g+rx src/entrypoint.sh /mygame
+ENTRYPOINT [ "/mygame/./entrypoint.sh" ]
