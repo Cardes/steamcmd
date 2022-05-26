@@ -1,4 +1,4 @@
-FROM steamcmd/steamcmd:ubuntu-20
+FROM docker.io/steamcmd/steamcmd:ubuntu-20
 #overwrite ENV for our user
 ENV USER mygame
 ENV HOME /mygame/gamefiles
