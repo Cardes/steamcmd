@@ -8,7 +8,7 @@ RUN mkdir -p /mygame/gamefiles \
     && chgrp -R 0 /mygame \
     && chmod -R g=u /mygame \
     && chgrp -R 0 /tmp \
-    && chrmod -R g=u /tmp
+    && chmod -R g=u /tmp
 
 VOLUME ["/mygame/saves","/mygame/data"]
 WORKDIR /mygame
