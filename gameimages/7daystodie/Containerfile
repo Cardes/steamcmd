@@ -9,8 +9,8 @@ RUN mkdir -p /mygame/gamefiles \
     && mkdir -p /mygame/saves \
     && mkdir -p /mygame/data  \
     && chown -R mygame:mygame /mygame \
-    && chmod -R g+rwx /mygame \
-    && chmod -R a+rwx /tmp
+    && chmod -R 775 /mygame \
+    && chmod -R 777 /tmp
 
 VOLUME ["/mygame/saves","/mygame/data"]
 WORKDIR /mygame
