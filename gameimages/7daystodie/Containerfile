@@ -9,7 +9,8 @@ RUN mkdir -p /mygame/gamefiles \
     && chmod -R g=u /mygame \
     && chgrp -R 0 /tmp \
     && chmod -R g=u /tmp
-
+EXPOSE 26900/tcp
+EXPOSE 26900-26903/udp
 VOLUME ["/mygame/saves","/mygame/data"]
 WORKDIR /mygame
 #The serveconfig.xml is provided via configmap so there is no need to build logic to convert ENV variable to serverconfig entries
