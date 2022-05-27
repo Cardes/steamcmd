@@ -1,18 +1,7 @@
-FROM docker.io/steamcmd/steamcmd:ubuntu-20
-#overwrite ENV for our user
-ENV HOME /mygame/gamefiles
-#allow the group to write and execute, this can't be bound to a specifc ID as openshift assigns random ids
-RUN mkdir -p /mygame/gamefiles \
-    && mkdir -p /mygame/saves \
-    && mkdir -p /mygame/data  \
-    && chgrp -R 0 /mygame \
-    && chmod -R g=u /mygame \
-    && chgrp -R 0 /tmp \
-    && chmod -R g=u /tmp
+FROM ubuntu:22.04
+VOLUME [ "/mygame/gamefiles" ]
 EXPOSE 26900/tcp
-EXPOSE 26900-26903/udp
-VOLUME ["/mygame/saves","/mygame/data"]
-WORKDIR /mygame
-#The serveconfig.xml is provided via configmap so there is no need to build logic to convert ENV variable to serverconfig entries
+EXPOSE 26900:26902/udp
 COPY --chmod=555 src/entrypoint.sh /mygame
+WORKDIR /mygame
 ENTRYPOINT [ "/mygame/./entrypoint.sh" ]

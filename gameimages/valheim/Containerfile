@@ -12,10 +12,8 @@ RUN mkdir -p /mygame/gamefiles \
     && chmod -R g+rwx /mygame \
     && chmod -R a+rwx /tmp
 
-VOLUME ["/mygame/saves","/mygame/data"]
+VOLUME ["/mygame/saves","/mygame/gamefiles"]
 WORKDIR /mygame
-USER mygame
 #Installing valheim dedicated
-RUN steamcmd +force_install_dir /mygame/gamefiles +login anonymous +app_update 896660 +quit
 ENTRYPOINT [ "/bin/bash" ]
  
