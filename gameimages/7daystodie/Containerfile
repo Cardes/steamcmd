@@ -1,7 +1,5 @@
 FROM ubuntu:22.04
 VOLUME [ "/mygame/gamefiles" ]
-EXPOSE 26900/tcp
-EXPOSE 26900:26902/udp
 COPY --chmod=555 src/entrypoint.sh /mygame
 WORKDIR /mygame
 ENTRYPOINT [ "/mygame/./entrypoint.sh" ]
