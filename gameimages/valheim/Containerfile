@@ -4,9 +4,13 @@ ENV SERVERNAME 'Valheim Dedicated Server for OKD'
 ENV SERVERPORT 2456
 ENV WORLDNAME 'Dedicated'
 ENV SERVERPASSWORD 'YouShouldChangeThis'
-VOLUME [ "/mygame/gamefiles" ]
+ENV SAVEPATH "/mygame/saves"
+VOLUME [ "/mygame/gamefiles" ,"/mygame/saves" ]
 WORKDIR /mygame
 COPY --chmod=555 src/entrypoint.sh /mygame
+RUN mkdir -p ${SAVEPATH} \
+    && chgrp -R 0 ${SAVEPATH} \
+    && chmod -R g=u ${SAVEPATH}
 ENTRYPOINT [ "/mygame/./entrypoint.sh" ]
 
  
