@@ -5,8 +5,8 @@ ENV SERVERPORT 2456
 ENV WORLDNAME 'Dedicated'
 ENV SERVERPASSWORD 'YouShouldChangeThis'
 VOLUME [ "/mygame/gamefiles" ]
-COPY --chmod=555 src/entrypoint.sh /mygame
 WORKDIR /mygame
+COPY --chmod=555 src/entrypoint.sh /mygame
 ENTRYPOINT [ "/mygame/./entrypoint.sh" ]
 
  
