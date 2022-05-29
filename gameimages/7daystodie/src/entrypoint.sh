@@ -1,5 +1,6 @@
 #!/bin/bash
-#workaround for access permission denied 
-cp -f /mygame/gamefiles/serverconfig.xml /mygame/gamefiles/serverconfig_working.xml
-cp -f /mygame/saves/serveradmin.xml /mygame/saves/serveradmin_working.xml 
-exec /mygame/gamefiles/./startserver.sh -configfile=/mygame/gamefiles/serverconfig_working.xml
+#this overwrites the configfiles every time the container is restarted, which essentially renders config changes inside the game via admin commands useless
+#templates are copied because the dedicated server binary whants 'rw' access to those files
+cp -f /mygame/gamefiles/serverconfig_template.xml /mygame/gamefiles/serverconfig.xml
+cp -f /mygame/saves/serveradmin_template.xml /mygame/saves/serveradmin.xml 
+exec /mygame/gamefiles/./startserver.sh -configfile=/mygame/gamefiles/serverconfig.xml
